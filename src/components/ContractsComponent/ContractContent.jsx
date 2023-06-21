@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
 import CreateContracts from './CreateContracts';
 import ContractsCard from './ContractsCard';
-import PaginationCon from './Pagination';
+import PaginationCon from '../Pagination';
 import axios from 'axios';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,17 +45,62 @@ export default function ContractContent() {
   const [currentPage, setCurrentPage] = React.useState(1);
   const pageSize = 12;
 
-  const handleCompleteContract = (contractId) => {
-    const updatedContracts = contracts.filter((contract) => contract.id !== contractId);
-    const completedContract = contracts.find((contract) => contract.id === contractId);
-    setContracts(updatedContracts);
-    setCompletedContracts([...completedContracts, completedContract]);
-    const completedContractsFromStorage =
-      JSON.parse(localStorage.getItem('completedContracts')) || [];
-    localStorage.setItem(
-      'completedContracts',
-      JSON.stringify([...completedContractsFromStorage, completedContract]),
-    );
+  // const handleCompleteContract = (contractId) => {
+  //   // const updatedContracts = contracts.filter((contract) => contract.id !== contractId);
+
+  //   const completedContract = contracts.find((contract) => contract.id === contractId);
+  //   setContracts(updatedContracts);
+  //   setCompletedContracts([...completedContracts, completedContract]);
+  //   const completedContractsFromStorage =
+  //     JSON.parse(localStorage.getItem('completedContracts')) || [];
+  //   localStorage.setItem(
+  //     'completedContracts',
+  //     JSON.stringify([...completedContractsFromStorage, completedContract]),
+  //   );
+  // };
+  // const handleCompleteContract = async (contractId) => {
+  //   try {
+  //     await axios.put(
+  //       `http://localhost:9088/api/v1/contracts/${contractId}/change-status?status=DONE`,
+  //     );
+  //     const updatedContracts = contracts.filter((contract) => contract.id !== contractId);
+  //     // const completedContract = contracts.find((contract) => contract.id === contractId);
+  //     setContracts(updatedContracts);
+  //     setCompletedContracts([...completedContracts, completedContract]);
+  //     const completedContractsFromStorage =
+  //       JSON.parse(localStorage.getItem('completedContracts')) || [];
+  //     localStorage.setItem(
+  //       'completedContracts',
+  //       JSON.stringify([...completedContractsFromStorage, completedContract]),
+  //     );
+  //   } catch (error) {
+  //     console.warn(error);
+  //     alert('Ошибка при изменении статуса контракта');
+  //   }
+  // };
+
+  const handleCompleteContract = async (contractId) => {
+    try {
+      await axios.put(
+        `http://localhost:9088/api/v1/contracts/${contractId}/change-status?status=DONE`,
+      );
+
+      const completedContract = contracts.find((contract) => contract.id === contractId);
+      const updatedContracts = contracts.filter((contract) => contract.id !== contractId);
+
+      setContracts(updatedContracts);
+      setCompletedContracts([...completedContracts, completedContract]);
+
+      const completedContractsFromStorage =
+        JSON.parse(localStorage.getItem('completedContracts')) || [];
+      localStorage.setItem(
+        'completedContracts',
+        JSON.stringify([...completedContractsFromStorage, completedContract]),
+      );
+    } catch (error) {
+      console.warn(error);
+      alert('Ошибка при изменении статуса контракта');
+    }
   };
 
   const id = window.localStorage.getItem('id');

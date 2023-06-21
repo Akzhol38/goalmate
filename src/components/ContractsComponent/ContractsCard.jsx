@@ -1,8 +1,8 @@
 import * as React from 'react';
-import cardIcon from '../assets/cardIcon.svg';
-import contractCard from '../assets/mainPhoto.png';
-import sportPhoto from '../assets/sport.png';
-import foodPhoto from '../assets/food.png';
+import cardIcon from '../../assets/cardIcon.svg';
+import contractCard from '../../assets/mainPhoto.png';
+import sportPhoto from '../../assets/sport.png';
+import foodPhoto from '../../assets/food.png';
 import { Box, Paper, Typography } from '@mui/material';
 import ContractsCardMenu from './ContractsCardMenu';
 

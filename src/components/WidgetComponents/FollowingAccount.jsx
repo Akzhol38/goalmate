@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFollowingsData } from '../redux/slices/followingSlice';
+import { setFollowingsData } from '../../redux/slices/followingSlice';
 export default function FollowingAccount({ username, id }) {
   console.log(id);
   const idUser = window.localStorage.getItem('id');

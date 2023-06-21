@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import mainPhoto from '../assets/mainPhoto.png';
+import mainPhoto from '../../assets/mainPhoto.png';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -18,7 +18,7 @@ import Divider from '@mui/material/Divider';
 import { useSelector } from 'react-redux';
 import MainContentCard from './MainContentCard';
 
-export default function MainContent({ firstname, lastname, userId }) {
+export default function MainContent({ firstname, lastname, userId, isFirst }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -35,7 +35,7 @@ export default function MainContent({ firstname, lastname, userId }) {
   };
 
   return (
-    <Card sx={{ width: 551, height: 970, mt: 15, ml: 5 }}>
+    <Card sx={{ width: 551, height: 990, mt: isFirst ? 15 : 0, ml: 5 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', pt: '24px', pl: '16px', pb: '16px' }}>
           <Stack direction="row" spacing={1}>

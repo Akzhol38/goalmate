@@ -1,9 +1,9 @@
 import * as React from 'react';
-import cardIcon from '../assets/cardIcon.svg';
-import submitContract from '../assets/submitContract.svg';
-import contractCard from '../assets/mainPhoto.png';
-import sportPhoto from '../assets/sport.png';
-import foodPhoto from '../assets/food.png';
+import cardIcon from '../../assets/cardIcon.svg';
+import submitContract from '../../assets/submitContract.svg';
+import contractCard from '../../assets/mainPhoto.png';
+import sportPhoto from '../../assets/sport.png';
+import foodPhoto from '../../assets/food.png';
 import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 export default function MainContentCard({ userId }) {

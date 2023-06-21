@@ -3,9 +3,9 @@ import './Home.scss';
 import axios from 'axios';
 import Category from '../../components/Category';
 import Header from '../../components/Header';
-import MainContent from '../../components/MainContent';
-import OtherAccount from '../../components/OtherAccount';
-import Widget from '../../components/Widget';
+import MainContent from '../../components/MainComponents/MainContent';
+import OtherAccount from '../../components/WidgetComponents/OtherAccount';
+import Widget from '../../components/WidgetComponents/Widget';
 import { Container } from '@mui/material';
 const Home = () => {
   const [currentCategory, setCurrentCategory] = React.useState(0);
@@ -35,8 +35,13 @@ const Home = () => {
             <Category currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
           </div>
           <div>
-            {users.map((user) => (
-              <MainContent firstname={user.firstname} lastname={user.lastname} userId={user.id} />
+            {users.map((user, index) => (
+              <MainContent
+                firstname={user.firstname}
+                lastname={user.lastname}
+                userId={user.id}
+                isFirst={index === 0}
+              />
             ))}
           </div>
           <div>

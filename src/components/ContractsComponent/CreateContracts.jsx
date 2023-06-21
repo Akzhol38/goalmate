@@ -4,16 +4,16 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import create from '../assets/create.svg';
+import create from '../../assets/create.svg';
 import { Avatar } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import CreateContractsCard from './CreateContractsCard';
 import Divider from '@mui/material/Divider';
 import ContractsCard from './ContractsCard';
 
-import mainPhoto from '../assets/mainPhoto.png';
-import sportPhoto from '../assets/sport.png';
-import foodPhoto from '../assets/food.png';
+import mainPhoto from '../../assets/mainPhoto.png';
+import sportPhoto from '../../assets/sport.png';
+import foodPhoto from '../../assets/food.png';
 
 const style = {
   position: 'absolute',

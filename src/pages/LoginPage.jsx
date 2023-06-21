@@ -88,7 +88,7 @@ export default function LoginPage() {
             {...register('username', { required: 'Укажите UserName' })}
             fullWidth
             id="username"
-            label="UserName"
+            label="Логин"
             name="username"
             autoComplete="username"
             autoFocus

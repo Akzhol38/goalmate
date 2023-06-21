@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useDispatch } from 'react-redux';
-import { setContractDone } from '../redux/slices/contractSlice';
+import { setContractDone } from '../../redux/slices/contractSlice';
 import axios from 'axios';
 export default function ContractsCardMenu({ id, handleCompleteContract }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,7 +23,7 @@ export default function ContractsCardMenu({ id, handleCompleteContract }) {
       dispatch(setContractDone(data));
     } catch (error) {
       console.warn(error);
-      alert('Ошибка при изменение статса(Выполнено)');
+      alert('Ошибка при изменение статусе(Выполнено)');
     }
   };
   const handleClose = () => {

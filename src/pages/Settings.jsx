@@ -2,10 +2,10 @@ import React from 'react';
 
 import Category from '../components/Category';
 import Header from '../components/Header';
-import Widget from '../components/Widget';
+import Widget from '../components/WidgetComponents/Widget';
 import { Container } from '@mui/material';
-import SettingsContent from '../components/SettingsContent';
-import SettingsOptions from '../components/SettingsOptions';
+import SettingsContent from '../components/SettingsComponents/SettingsContent';
+import SettingsOptions from '../components/SettingsComponents/SettingsOptions';
 
 const Settings = () => {
   return (

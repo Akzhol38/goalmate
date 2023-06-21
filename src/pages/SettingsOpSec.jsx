@@ -2,10 +2,10 @@ import React from 'react';
 
 import Category from '../components/Category';
 import Header from '../components/Header';
-import Widget from '../components/Widget';
+import Widget from '../components/WidgetComponents/Widget';
 import { Container } from '@mui/material';
-import SettingsOptionsSec from '../components/SettingsOptionsSec';
-import SettingsOptions from '../components/SettingsOptions';
+import SettingsOptionsSec from '../components/SettingsComponents/SettingsOptionsSec';
+import SettingsOptions from '../components/SettingsComponents/SettingsOptions';
 
 const SettingsOpSec = () => {
   return (

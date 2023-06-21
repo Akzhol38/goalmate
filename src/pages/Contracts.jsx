@@ -2,9 +2,9 @@ import React from 'react';
 
 import Category from '../components/Category';
 import Header from '../components/Header';
-import Widget from '../components/Widget';
+import Widget from '../components/WidgetComponents/Widget';
 import { Container } from '@mui/material';
-import ContractContent from '../components/ContractContent';
+import ContractContent from '../components/ContractsComponent/ContractContent';
 
 const Contracts = () => {
   return (
@@ -19,7 +19,6 @@ const Contracts = () => {
           <div>
             <ContractContent />
           </div>
-          <div></div>
         </div>
       </Container>
     </div>
