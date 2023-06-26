@@ -4,16 +4,42 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useDispatch } from 'react-redux';
-import { setContractDone } from '../../redux/slices/contractSlice';
+import {
+  deleteContract,
+  setContractArchived,
+  setContractData,
+  setContractDone,
+} from '../../redux/slices/contractSlice';
 import axios from 'axios';
-export default function ContractsCardMenu({ id, handleCompleteContract }) {
+export default function ContractsCardMenu({
+  id,
+  handleCompleteContract,
+  handleArchiveContract,
+  tabValue,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const dispatch = useDispatch();
+
+  const onData = async () => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:9088/api/v1/contracts/${id}/change-status?status=ONGOING`,
+      );
+      dispatch(setContractData(data));
+    } catch (error) {
+      console.warn(error);
+      alert('Ошибка при изменение статусе(Выполнено)');
+    }
+  };
 
   const onSubmit = async () => {
     try {
@@ -26,11 +52,51 @@ export default function ContractsCardMenu({ id, handleCompleteContract }) {
       alert('Ошибка при изменение статусе(Выполнено)');
     }
   };
-  const handleClose = () => {
+
+  const onArchived = async () => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:9088/api/v1/contracts/${id}/change-status?status=ARCHIVED`,
+      );
+      dispatch(setContractArchived(data));
+    } catch (error) {
+      console.warn(error);
+      alert('Ошибка при изменение статусе(Архив)');
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      const { data } = await axios.delete(`http://localhost:9088/api/v1/contracts/${id}`);
+      dispatch(deleteContract(data));
+    } catch (error) {
+      console.warn(error);
+      alert('Ошибка при удаления контракта');
+    }
+  };
+
+  const handleOnGoing = () => {
+    setAnchorEl(null);
+    onData();
+  };
+
+  const handleComplete = () => {
     setAnchorEl(null);
     onSubmit();
     handleCompleteContract(id);
   };
+
+  const handleArchived = () => {
+    setAnchorEl(null);
+    onArchived();
+    handleArchiveContract(id);
+  };
+
+  const handleDelete = () => {
+    setAnchorEl(null);
+    onDelete();
+  };
+
   return (
     <div>
       <Button
@@ -61,8 +127,27 @@ export default function ContractsCardMenu({ id, handleCompleteContract }) {
           vertical: 'top',
           horizontal: 'left',
         }}>
-        <MenuItem onClick={handleClose}>Выполнить</MenuItem>
-        <MenuItem onClick={handleClose}>В Архив</MenuItem>
+        {tabValue === 0 && (
+          <div>
+            <MenuItem onClick={handleComplete}>Выполнить</MenuItem>
+            <MenuItem onClick={handleArchived}>В Архив</MenuItem>
+            <MenuItem onClick={handleDelete}>Удалить</MenuItem>{' '}
+          </div>
+        )}
+        {tabValue === 1 && (
+          <div>
+            <MenuItem onClick={handleOnGoing}>В Текущие</MenuItem>
+            <MenuItem onClick={handleArchived}>В Архив</MenuItem>
+            <MenuItem onClick={handleDelete}>Удалить</MenuItem>{' '}
+          </div>
+        )}
+        {tabValue === 2 && (
+          <div>
+            <MenuItem onClick={handleOnGoing}>В Текущие</MenuItem>
+            <MenuItem onClick={handleComplete}>Выполнить</MenuItem>
+            <MenuItem onClick={handleDelete}>Удалить</MenuItem>{' '}
+          </div>
+        )}
       </Menu>
     </div>
   );

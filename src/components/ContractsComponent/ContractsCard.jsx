@@ -6,7 +6,15 @@ import foodPhoto from '../../assets/food.png';
 import { Box, Paper, Typography } from '@mui/material';
 import ContractsCardMenu from './ContractsCardMenu';
 
-export default function ContractsCard({ title, dateFrom, dateTo, ids, handleCompleteContract }) {
+export default function ContractsCard({
+  title,
+  dateFrom,
+  dateTo,
+  ids,
+  handleCompleteContract,
+  tabValue,
+  handleArchiveContract,
+}) {
   const currentPhoto = Number(window.localStorage.getItem('currentPhoto'));
 
   const handlePhoto = () => {
@@ -18,13 +26,18 @@ export default function ContractsCard({ title, dateFrom, dateTo, ids, handleComp
       return foodPhoto;
     }
   };
-  console.log(currentPhoto);
+
   return (
     <Box sx={{ margin: '8px', position: 'relative' }}>
       <img width={286} height={180} src={handlePhoto()} alt="ContractCard" />
 
       <Box sx={{ positon: 'absolute', top: 0, right: 0, bottom: 0 }}>
-        <ContractsCardMenu id={ids} handleCompleteContract={handleCompleteContract} />
+        <ContractsCardMenu
+          id={ids}
+          handleCompleteContract={handleCompleteContract}
+          tabValue={tabValue}
+          handleArchiveContract={handleArchiveContract}
+        />
       </Box>
       <Box
         sx={{

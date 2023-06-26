@@ -60,8 +60,9 @@ export default function SettingsOptionsSec() {
           fullWidth
           name="OldPassword"
           label="Старый пароль"
-          type="OldPassword"
+          type="password"
           id="OldPassword"
+          autoComplete="password"
           value={oldPassword}
           onChange={(event) => setOldPassword(event.target.value)}
         />

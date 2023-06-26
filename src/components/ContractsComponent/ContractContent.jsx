@@ -34,6 +34,9 @@ export default function ContractContent() {
   const [contracts, setContracts] = React.useState([]);
 
   const [completedContracts, setCompletedContracts] = React.useState([]);
+  const [archivedContracts, setArchivedContracts] = React.useState([]);
+
+  const [filterStatus, setFilterStatus] = React.useState('ONGOING');
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const pageSize = 12;
@@ -51,22 +54,55 @@ export default function ContractContent() {
       'completedContracts',
       JSON.stringify([...completedContractsFromStorage, completedContract]),
     );
+  };
 
-    if (value === 0) {
-      // Если текущая вкладка "Текущие", обновляем контракты
-      setContracts(updatedContracts);
-    } else if (value === 1) {
-      // Если текущая вкладка "Выполненные", обновляем выполненные контракты
-      setCompletedContracts([...completedContracts, completedContract]);
-    }
+  const handleArchiveContract = (contractId) => {
+    const archivedContract = contracts.find((contract) => contract.id === contractId);
+    const updatedArchiContracts = contracts.filter((contract) => contract.id !== contractId);
+
+    setContracts(updatedArchiContracts);
+    setArchivedContracts([...archivedContracts, archivedContract]);
+
+    const archivedContractsFromStorage =
+      JSON.parse(localStorage.getItem('archivedContracts')) || [];
+    localStorage.setItem(
+      'archivedContracts',
+      JSON.stringify([...archivedContractsFromStorage, archivedContract]),
+    );
+
+    // if (value === 0) {
+    //   // Если текущая вкладка "Текущие", обновляем контракты
+    //   setContracts(updatedContracts);
+    // } else if (value === 2) {
+    //   // Если текущая вкладка "Архив", обновляем архивные контракты
+    //   setArchivedContracts([...archivedContracts, archivedContract]);
+    // }
   };
 
   const id = window.localStorage.getItem('id');
-  const fetchData = async () => {
+  // const fetchData = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:9088/api/v1/contracts/users/${id}?status=ONGOING`,
+  //     );
+
+  //     setContracts(data);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.warn(error);
+  //     alert('Ошибка при получения Контрактов');
+  //   }
+  // };
+
+  const fetchData = async (status) => {
+    // Обновлено
     try {
-      const { data } = await axios.get(`http://localhost:9088/api/v1/contracts/users/${id}`);
+      const { data } = await axios.get(
+        `http://localhost:9088/api/v1/contracts/users/${id}?status=${status}`,
+      );
 
       setContracts(data);
+      console.log(data);
     } catch (error) {
       console.warn(error);
       alert('Ошибка при получения Контрактов');
@@ -74,16 +110,32 @@ export default function ContractContent() {
   };
 
   React.useEffect(() => {
-    fetchData();
+    fetchData(filterStatus);
     const completedContractsFromStorage =
       JSON.parse(localStorage.getItem('completedContracts')) || [];
     setCompletedContracts(completedContractsFromStorage);
-  }, []);
+
+    const archivedContractsFromStorage =
+      JSON.parse(localStorage.getItem('archivedContracts')) || [];
+    setArchivedContracts(archivedContractsFromStorage);
+  }, [filterStatus]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
-      setContracts(contracts);
+      setFilterStatus('ONGOING'); // Установка статуса фильтрации
+    } else if (newValue === 1) {
+      setFilterStatus('DONE'); // Установка статуса фильтрации
+    } else if (newValue === 2) {
+      setFilterStatus('ARCHIVED'); // Установка статуса фильтрации
+    }
+
+    if (newValue === 0) {
+      fetchData('ONGOING'); // Загружаем текущие контракты
+    } else if (newValue === 1) {
+      fetchData('DONE'); // Загружаем выполненные контракты
+    } else if (newValue === 2) {
+      fetchData('ARCHIVED'); // Загружаем архивированные контракты
     }
   };
 
@@ -123,6 +175,8 @@ export default function ContractContent() {
                 dateTo={obj.dateTo}
                 ids={obj.id}
                 handleCompleteContract={handleCompleteContract}
+                handleArchiveContract={handleArchiveContract}
+                tabValue={value}
               />
             ))
           ) : (
@@ -144,7 +198,7 @@ export default function ContractContent() {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {completedContracts ? (
+          {/* {completedContracts ? (
             currentCompData.map((obj, index) => (
               <ContractsCard
                 key={index}
@@ -152,6 +206,22 @@ export default function ContractContent() {
                 dateFrom={obj.dateFrom}
                 dateTo={obj.dateTo}
                 ids={obj.id}
+              />
+            ))
+          ) : (
+            <p>Loading...</p>
+          )} */}
+          {contracts ? (
+            currentData.map((obj, index) => (
+              <ContractsCard
+                key={index}
+                title={obj.title}
+                dateFrom={obj.dateFrom}
+                dateTo={obj.dateTo}
+                ids={obj.id}
+                handleCompleteContract={handleCompleteContract}
+                handleArchiveContract={handleArchiveContract}
+                tabValue={value}
               />
             ))
           ) : (
@@ -165,7 +235,22 @@ export default function ContractContent() {
           /> */}
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          {contracts ? (
+            currentData.map((obj, index) => (
+              <ContractsCard
+                key={index}
+                title={obj.title}
+                dateFrom={obj.dateFrom}
+                dateTo={obj.dateTo}
+                ids={obj.id}
+                handleCompleteContract={handleCompleteContract}
+                handleArchiveContract={handleArchiveContract}
+                tabValue={value}
+              />
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
         </TabPanel>
       </Box>
     </Card>
