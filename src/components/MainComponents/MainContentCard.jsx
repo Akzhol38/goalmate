@@ -6,25 +6,7 @@ import sportPhoto from '../../assets/sport.png';
 import foodPhoto from '../../assets/food.png';
 import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import axios from 'axios';
-export default function MainContentCard({ userId }) {
-  const [mainContracts, setMainContracts] = React.useState([]);
-  // const [loading, setLoading] = React.userState(false);
-  const id = window.localStorage.getItem('id');
-  const fetchContracts = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:9088/api/v1/main?userId=${id}`);
-
-      setMainContracts(data);
-    } catch (error) {
-      console.warn(error);
-      alert('Ошибка при получения контрактов');
-    }
-  };
-
-  React.useEffect(() => {
-    fetchContracts();
-  }, []);
-  console.log(mainContracts.title);
+export default function MainContentCard({ mainContracts }) {
   return (
     <Box sx={{ margin: '8px', position: 'relative' }}>
       <img
@@ -50,17 +32,15 @@ export default function MainContentCard({ userId }) {
             height: '600px',
             position: 'relative',
           }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: '32px' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: '32px', pb: '10px' }}>
             <img width="30px" height="30px" src={cardIcon} alt="cardIcon" />
             <Typography sx={{ fontSize: '24px', paddingLeft: '6px' }}>Целевой контракт</Typography>
           </Box>
 
           {mainContracts.map((item, index) => (
-            <>
-              <Typography sx={{ fontSize: '32px', fontWeight: '700', mb: '8px' }}>
-                {item.title}
-              </Typography>
-              <Typography sx={{ fontSize: '25px', fontWeight: '700' }}>
+            <div key={item}>
+              <Typography sx={{ fontSize: '32px', fontWeight: '700' }}>{item.title}</Typography>
+              <Typography sx={{ fontSize: '32px', fontWeight: '700', mb: 2 }}>
                 {item.description}
               </Typography>
               <Typography sx={{ fontSize: '20px', fontWeight: '700', mb: '28px' }}>
@@ -115,10 +95,11 @@ export default function MainContentCard({ userId }) {
                 }}>
                 Свидетель: {item.friendName} ({item.friendNumber})
               </Typography>
-            </>
+            </div>
           ))}
         </Paper>
       </Box>
     </Box>
   );
 }
+//http://localhost:9088/api/v1/main?userId=${id}

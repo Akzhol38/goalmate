@@ -29,7 +29,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ContractContent() {
+export default function ProfileContractContent() {
   const [value, setValue] = React.useState(0);
   const [contracts, setContracts] = React.useState([]);
 
@@ -51,14 +51,6 @@ export default function ContractContent() {
       'completedContracts',
       JSON.stringify([...completedContractsFromStorage, completedContract]),
     );
-
-    if (value === 0) {
-      // Если текущая вкладка "Текущие", обновляем контракты
-      setContracts(updatedContracts);
-    } else if (value === 1) {
-      // Если текущая вкладка "Выполненные", обновляем выполненные контракты
-      setCompletedContracts([...completedContracts, completedContract]);
-    }
   };
 
   const id = window.localStorage.getItem('id');
@@ -69,7 +61,7 @@ export default function ContractContent() {
       setContracts(data);
     } catch (error) {
       console.warn(error);
-      alert('Ошибка при получения Контрактов');
+      alert('Ошибка при получения статьи');
     }
   };
 
@@ -82,9 +74,6 @@ export default function ContractContent() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    if (newValue === 0) {
-      setContracts(contracts);
-    }
   };
 
   const handlePageChange = (pageIndex) => {
@@ -99,9 +88,9 @@ export default function ContractContent() {
   return (
     <Card
       sx={{
-        width: '922px',
-        height: '900px',
-        mt: 15,
+        width: '570px',
+        height: '600px',
+        mt: 8,
         ml: 5,
       }}>
       <Box>
@@ -110,7 +99,6 @@ export default function ContractContent() {
             <Tab label="Текущие" {...a11yProps(0)} />
             <Tab label="Выполненные" {...a11yProps(1)} />
             <Tab label="Архив" {...a11yProps(2)} />
-            <CreateContracts />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>

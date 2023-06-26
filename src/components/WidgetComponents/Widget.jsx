@@ -6,22 +6,25 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+
 export default function Widget() {
   const storedUsername = window.localStorage.getItem('username');
   const storedFirstname = window.localStorage.getItem('firstname');
   const storedLastname = window.localStorage.getItem('lastname');
+
   const firstname = useSelector((state) => state.auth.data?.firstname) || storedFirstname;
   const lastname = useSelector((state) => state.auth.data?.lastname) || storedLastname;
   const username = useSelector((state) => state.auth.data?.username) || storedUsername;
+
   const [data, setData] = React.useState([]);
   const [followings, setFollowings] = React.useState([]);
   const id = window.localStorage.getItem('id');
+
   React.useEffect(() => {
     axios
       .get(`http://localhost:9088/api/v1/contracts/users/${id}`)
       .then((res) => {
         setData(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.warn(error);
@@ -42,7 +45,18 @@ export default function Widget() {
   }, []);
 
   return (
-    <Card sx={{ width: 194, height: 136, mt: 15, ml: 5, pt: '24px', pl: '16px' }}>
+    <Card
+      sx={{
+        width: 194,
+        height: 136,
+        mt: 15,
+        ml: 5,
+        pt: '24px',
+        pl: '16px',
+        '@media (max-width: 600px)': {
+          display: 'none',
+        },
+      }}>
       <Box sx={{ display: 'flex' }}>
         <Stack direction="row" spacing={1}>
           <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
@@ -58,13 +72,23 @@ export default function Widget() {
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', pt: '16px', pr: '20px' }}>
         <Box textAlign="center">
-          <Typography fontSize={19} fontWeight={700}>
+          <Typography
+            sx={{
+              fontSize: 19,
+              fontWeight: 700,
+              // '@media (max-width: 600px)': { display: 'none' },
+            }}>
             {followings.length}
           </Typography>
           <Typography>Подписчики</Typography>
         </Box>
         <Box textAlign="center" sx={{ pl: '12px' }}>
-          <Typography fontSize={19} fontWeight={700}>
+          <Typography
+            sx={{
+              fontSize: 19,
+              fontWeight: 700,
+              // '@media (max-width: 600px)': { display: 'none' },
+            }}>
             {data.length}
           </Typography>
           <Typography>Контракты</Typography>

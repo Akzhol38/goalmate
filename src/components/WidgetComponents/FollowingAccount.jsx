@@ -8,7 +8,6 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFollowingsData } from '../../redux/slices/followingSlice';
 export default function FollowingAccount({ username, id }) {
-  console.log(id);
   const idUser = window.localStorage.getItem('id');
   const dispatch = useDispatch();
   const [isFollowing, setIsFollowing] = React.useState([]);
@@ -18,7 +17,7 @@ export default function FollowingAccount({ username, id }) {
   //   console.log(followings);
   //   setIsFollowing([followings].includes(id));
   // }, [id]);
-  console.log(isFollowing.isFollowed);
+
   const onFollow = async () => {
     try {
       const { data } = await axios.post(

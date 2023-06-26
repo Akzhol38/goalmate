@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-// import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -19,19 +18,12 @@ export default function RegisterPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues: {
-      firstname: 'Джон',
-      lastname: 'Дэн',
-      username: 'ДжонниДэн',
-      email: 'Jonhdan@gmail.com',
-      password: 'Jonh12345',
-    },
     mode: 'onChange',
   });
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchRegister(values));
-    console.log(data);
+
     if (!data.payload) {
       alert('Не удалось зарегистроваться');
     }
@@ -55,11 +47,12 @@ export default function RegisterPage() {
         sx={{
           textAlign: 'center',
           color: '#C3FF29',
-          fontSize: '38px',
-          fontWeight: '700',
+          fontSize: '48px',
+          fontFamily: '"Montserrat", sans-serif',
+          fontWeight: '900',
           marginTop: '50px',
         }}>
-        Goalmate
+        GoalMate
       </Typography>
       <Box
         sx={{
@@ -71,9 +64,15 @@ export default function RegisterPage() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          height: '596px',
+          minHeight: '500px',
+          backgroundColor: '#fff',
         }}>
-        <Typography fontSize={32} fontWeight={600}>
+        <Typography
+          sx={{
+            fontSize: '32px',
+            fontFamily: '"Montserrat", sans-serif',
+            fontWeight: '600',
+          }}>
           Регистрация
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,19 +98,17 @@ export default function RegisterPage() {
             label="Фамилия"
             name="lastname"
             autoComplete="lastname"
-            autoFocus
           />
           <TextField
             margin="normal"
             error={Boolean(errors.username?.message)}
             helperText={errors.username?.message}
-            {...register('username', { required: 'Укажите Username' })}
+            {...register('username', { required: 'Укажите Логин' })}
             fullWidth
             id="username"
             label="Логин"
             name="username"
             autoComplete="username"
-            autoFocus
           />
 
           <TextField
@@ -138,24 +135,23 @@ export default function RegisterPage() {
             id="password"
             autoComplete="current-password"
           />
-          <Box textAlign="center">
+          <Box textAlign="center" mt={3}>
             <Button
               disabled={!isValid}
               type="submit"
               fullWidth
               variant="contained"
               sx={{
-                mt: 3,
-                mb: 2,
-                width: '360px',
                 height: '40px',
                 backgroundColor: '#C3FF29',
                 color: '#000',
               }}>
-              зарегистрироваться
+              Зарегистрироваться
             </Button>
-            <Box>
-              <Link to="/">{'Не зарегистрированы в GoalMate? Зарегистрироваться'}</Link>
+            <Box mt={1}>
+              <Typography variant="body2">
+                <Link to="/">Не зарегистрированы в GoalMate? Зарегистрироваться</Link>
+              </Typography>
             </Box>
           </Box>
         </form>

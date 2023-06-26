@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Widget from '../components/WidgetComponents/Widget';
 import Category from '../components/Category';
 import OtherAccount from '../components/WidgetComponents/OtherAccount';
+import ProfileDetails from '../components/ProfileDetails';
 
 const UserProfile = () => {
   return (
@@ -17,7 +18,9 @@ const UserProfile = () => {
             <Widget />
             <Category />
           </div>
-          <div>hello</div>
+          <div style={{ mt: 5 }}>
+            <ProfileDetails />
+          </div>
           <div>
             <OtherAccount />
           </div>

@@ -7,24 +7,24 @@ import MainContent from '../../components/MainComponents/MainContent';
 import OtherAccount from '../../components/WidgetComponents/OtherAccount';
 import Widget from '../../components/WidgetComponents/Widget';
 import { Container } from '@mui/material';
+import Typography from '@mui/material/Typography';
 const Home = () => {
   const [currentCategory, setCurrentCategory] = React.useState(0);
   const [users, setUsers] = React.useState([]);
-  const [selectedUserId, setSelectedUserId] = React.useState(null);
   const idUser = window.localStorage.getItem('id');
+
   React.useEffect(() => {
     axios
-      .get(`http://localhost:9088/api/v1/random-users?userId=${idUser}`)
+      .get(`http://localhost:9088/api/v1/${idUser}/followings`)
       .then((res) => {
         setUsers(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.warn(error);
-        alert('Ошибка при получения статьи');
+        alert('Ошибка при получения подписчиков');
       });
   }, []);
-  console.log(users);
+
   return (
     <div className="app">
       <Header />
@@ -35,14 +35,36 @@ const Home = () => {
             <Category currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
           </div>
           <div>
-            {users.map((user, index) => (
-              <MainContent
-                firstname={user.firstname}
-                lastname={user.lastname}
-                userId={user.id}
-                isFirst={index === 0}
-              />
-            ))}
+            {users.length > 0 ? (
+              users.map((user, index) => (
+                <MainContent
+                  key={user.id}
+                  firstname={user.firstname}
+                  lastname={user.lastname}
+                  userId={user.id}
+                  isFirst={index === 0}
+                />
+              ))
+            ) : (
+              <div style={{ textAlign: 'center' }}>
+                <Typography
+                  sx={{
+                    mt: 30,
+                    ml: 5,
+                    fontSize: '35px',
+                    fontFamily: '"Montserrat", sans-serif',
+                    fontWeight: '700',
+                  }}
+                  variant="h5"
+                  align="center"
+                  color="black">
+                  Добро пожаловать в GoalMate!
+                </Typography>
+                <Typography>
+                  Здесь будут показываться цели людей на которых вы подпишитесь
+                </Typography>
+              </div>
+            )}
           </div>
           <div>
             <OtherAccount />

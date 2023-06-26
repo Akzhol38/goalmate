@@ -8,25 +8,9 @@ import SettingsOpSec from './pages/SettingsOpSec';
 import Contracts from './pages/Contracts';
 import ContractContent from './components/ContractsComponent/ContractContent';
 import UserProfile from './pages/UserProfile';
-
-// function PrivateRoute({ path, element }) {
-//   const token = localStorage.getItem('token');
-
-//   return token ? <Route path={path} element={element} /> : <Navigate to="/" replace={true} />;
-// }
+import ProfileDetails from './components/ProfileDetails';
 
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-
-  // React.useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     // Проверяем токен на валидность или делаем другую логику проверки авторизации
-  //     // Если токен валиден или пользователь авторизован, устанавливаем isAuthenticated в true
-  //     setIsAuthenticated(true);
-  //   }
-  // }, []);
-
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
@@ -36,6 +20,7 @@ function App() {
       <Route path="/settings" element={<Settings />} />
       <Route path="/settings/changePassword" element={<SettingsOpSec />} />
       <Route path="/profile" element={<UserProfile />} />
+      <Route path="/profile/:id" element={<ProfileDetails />} />
       <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );

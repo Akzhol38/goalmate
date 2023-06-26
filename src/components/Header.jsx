@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
 import { selectIsAuth } from '../redux/slices/authSlice';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const storedUsername = window.localStorage.getItem('username');
@@ -27,24 +28,28 @@ export default function Header() {
               variant="h6"
               noWrap
               component="div"
-              fontWeight={700}
               color={'black'}
-              fontSize={32}
-              sx={{ display: { xs: 'none', sm: 'block' } }}>
+              sx={{
+                fontSize: '32px',
+                fontFamily: '"Montserrat", sans-serif',
+                fontWeight: '900',
+              }}>
               GoalMate
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton size="large" edge="end" color="black">
-                <Stack direction="row" spacing={1}>
-                  <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
-                </Stack>
-                {/* <AccountCircle /> */}
-                <Typography sx={{ ml: '10px', fontWeight: 600, color: '#000' }}>
-                  {username}
-                </Typography>
-              </IconButton>
-            </Box>
+            <Link to="/profile">
+              <Box>
+                <IconButton size="large" edge="end" color="black">
+                  <Stack direction="row" spacing={1}>
+                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
+                  </Stack>
+                  {/* <AccountCircle /> */}
+                  <Typography sx={{ ml: '10px', fontWeight: 600, color: '#000' }}>
+                    {username}
+                  </Typography>
+                </IconButton>
+              </Box>
+            </Link>
           </Toolbar>
         </Container>
       </AppBar>

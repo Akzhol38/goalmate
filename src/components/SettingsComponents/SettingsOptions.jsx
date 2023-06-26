@@ -51,7 +51,7 @@ export default function SettingsOptions() {
             pl: '6px',
           }}>
           {options.map((option, index) => (
-            <div onClick={() => handleClick(index)}>
+            <div key={index} onClick={() => handleClick(index)}>
               <Button
                 className="category-btn"
                 sx={{

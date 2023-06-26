@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -13,6 +12,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { fetchAuth, selectIsAuth } from '../redux/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+
 export default function LoginPage() {
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
@@ -22,11 +22,6 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues: {
-      username: 'ДжонниДэн',
-      email: 'Jonhdan@gmail.com',
-      password: 'Jonh12345',
-    },
     mode: 'onChange',
   });
 
@@ -34,9 +29,6 @@ export default function LoginPage() {
     const data = await dispatch(fetchAuth(values));
 
     if (!data.payload) {
-      // <Stack sx={{ width: '100%' }} spacing={2}>
-      //   <Alert severity="error">Не удалось авторизоваться</Alert>
-      // </Stack>;
       alert('Не удалось авторизоваться');
     }
 
@@ -59,12 +51,14 @@ export default function LoginPage() {
         sx={{
           textAlign: 'center',
           color: '#C3FF29',
-          fontSize: '38px',
-          fontWeight: '700',
+          fontSize: '48px',
+          fontFamily: '"Montserrat", sans-serif',
+          fontWeight: '900',
           marginTop: '50px',
         }}>
-        Goalmate
+        GoalMate
       </Typography>
+
       <Box
         sx={{
           boxShadow: 3,
@@ -75,9 +69,15 @@ export default function LoginPage() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          height: '496px',
+          minHeight: '500px',
+          backgroundColor: '#fff',
         }}>
-        <Typography fontSize={32} fontWeight={600}>
+        <Typography
+          sx={{
+            fontSize: '32px',
+            fontFamily: '"Montserrat", sans-serif',
+            fontWeight: '600',
+          }}>
           Войти
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,13 +85,16 @@ export default function LoginPage() {
             margin="normal"
             error={Boolean(errors.username?.message)}
             helperText={errors.username?.message}
-            {...register('username', { required: 'Укажите UserName' })}
+            {...register('username', { required: 'Укажите Логин' })}
             fullWidth
             id="username"
             label="Логин"
             name="username"
             autoComplete="username"
             autoFocus
+            sx={{
+              mt: 2,
+            }}
           />
           <TextField
             margin="normal"
@@ -103,7 +106,6 @@ export default function LoginPage() {
             label="Эл.почта"
             name="email"
             autoComplete="email"
-            autoFocus
           />
           <TextField
             margin="normal"
@@ -118,21 +120,6 @@ export default function LoginPage() {
             autoComplete="current-password"
           />
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              mt: '24px',
-            }}>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Запомнить меня"
-            />
-            <Link href="#" variant="body2">
-              Забыли пароль ?
-            </Link>
-          </Box>
           <Box textAlign="center">
             <Button
               disabled={!isValid}
@@ -142,7 +129,7 @@ export default function LoginPage() {
               sx={{
                 mt: 3,
                 mb: 2,
-                width: '360px',
+                width: '100%', // Изменили ширину кнопки на 100% для адаптивности
                 height: '40px',
                 backgroundColor: '#C3FF29',
                 color: '#000',
@@ -150,9 +137,18 @@ export default function LoginPage() {
               Войти
             </Button>
 
-            <Box>
-              <Link to="/register">{'Не зарегистрированы в GoalMate? Зарегистрироваться'}</Link>
-            </Box>
+            <Typography
+              variant="body2"
+              sx={{
+                fontSize: '14px',
+                fontFamily: '"Montserrat", sans-serif',
+                fontWeight: '600',
+                mt: 1,
+              }}>
+              <Link underline="none" color="inherit" to="/register">
+                Не зарегистрированы в GoalMate? Зарегистрироваться
+              </Link>
+            </Typography>
           </Box>
         </form>
       </Box>
