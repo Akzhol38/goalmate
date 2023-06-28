@@ -62,10 +62,14 @@ export default function Widget() {
           <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
         </Stack>
         <Box sx={{ pl: '6px' }}>
-          <Typography sx={{ fontWeight: 700 }}>
+          <Typography
+            sx={{ fontSize: '14px', fontFamily: '"Montserrat", sans-serif', fontWeight: '700' }}>
             {firstname} {lastname}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            sx={{ fontSize: '14px', fontFamily: '"Montserrat", sans-serif', fontWeight: '500' }}
+            variant="body2"
+            color="text.secondary">
             {username}
           </Typography>
         </Box>
@@ -73,25 +77,23 @@ export default function Widget() {
       <Box sx={{ display: 'flex', alignItems: 'center', pt: '16px', pr: '20px' }}>
         <Box textAlign="center">
           <Typography
-            sx={{
-              fontSize: 19,
-              fontWeight: 700,
-              // '@media (max-width: 600px)': { display: 'none' },
-            }}>
+            sx={{ fontSize: '19px', fontFamily: '"Montserrat", sans-serif', fontWeight: '700' }}>
             {followings.length}
           </Typography>
-          <Typography>Подписчики</Typography>
+          <Typography
+            sx={{ fontSize: '14px', fontFamily: '"Montserrat", sans-serif', fontWeight: '500' }}>
+            Подписчики
+          </Typography>
         </Box>
         <Box textAlign="center" sx={{ pl: '12px' }}>
           <Typography
-            sx={{
-              fontSize: 19,
-              fontWeight: 700,
-              // '@media (max-width: 600px)': { display: 'none' },
-            }}>
+            sx={{ fontSize: '19px', fontFamily: '"Montserrat", sans-serif', fontWeight: '700' }}>
             {data.length}
           </Typography>
-          <Typography>Контракты</Typography>
+          <Typography
+            sx={{ fontSize: '14px', fontFamily: '"Montserrat", sans-serif', fontWeight: '500' }}>
+            Контракты
+          </Typography>
         </Box>
       </Box>
     </Card>

@@ -26,6 +26,8 @@ export default function CreateContractsCard({
   const id = window.localStorage.getItem('id');
   const dispatch = useDispatch();
 
+  const [fullName, setFullName] = React.useState('');
+
   const onSubmit = async () => {
     try {
       const fields = {
@@ -37,6 +39,7 @@ export default function CreateContractsCard({
         punishment,
         friendName,
         friendNumber,
+        fullName,
       };
       const config = {
         headers: {
@@ -99,7 +102,18 @@ export default function CreateContractsCard({
           <Typography sx={{ fontSize: '32px', fontWeight: '700', mb: '8px' }}>{title}</Typography>
           <Typography sx={{ fontSize: '25px', fontWeight: '700' }}>{description}</Typography>
           <Typography sx={{ fontSize: '20px', fontWeight: '700', mb: '28px' }}>
-            {dateFrom}-{dateTo}
+            {/* {dateFrom}-{dateTo} */}
+            {dateFrom && dateTo
+              ? `${new Date(dateFrom).toLocaleString('ru-RU', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })} - ${new Date(dateTo).toLocaleString('ru-RU', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}`
+              : ''}
           </Typography>
           <Typography
             sx={{
@@ -131,11 +145,31 @@ export default function CreateContractsCard({
                 pt: '24px',
               }}>
               Я обязуюсь придерживаться цели и условий, изложенными выше с{' '}
-              <span style={{ fontWeight: 700 }}>{dateFrom}</span>
-              <br /> по <span style={{ fontWeight: 700 }}>{dateTo}</span>.
+              <span style={{ fontWeight: 700 }}>
+                {dateFrom
+                  ? `${new Date(dateFrom).toLocaleString('ru-RU', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })} `
+                  : ''}
+              </span>
+              <br /> по{' '}
+              <span style={{ fontWeight: 700 }}>
+                {dateTo
+                  ? ` ${new Date(dateTo).toLocaleString('ru-RU', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}`
+                  : ''}
+              </span>
+              .
             </Typography>
             <TextField
               sx={{ width: '408px' }}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               id="standard-basic"
               label="Ваше полное имя"
               variant="standard"

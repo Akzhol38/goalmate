@@ -143,6 +143,13 @@ export default function CreateContracts() {
                   label="Наказание, если не выполнить цель"
                   variant="outlined"
                 />
+                {/* <TextField
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  margin="normal"
+                  label="Полное имя"
+                  variant="outlined"
+                /> */}
                 <TextField
                   value={friendName}
                   onChange={(e) => setFriendName(e.target.value)}

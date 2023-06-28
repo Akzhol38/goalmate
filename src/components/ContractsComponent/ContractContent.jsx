@@ -7,6 +7,8 @@ import CreateContracts from './CreateContracts';
 import ContractsCard from './ContractsCard';
 import PaginationCon from '../Pagination';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setContractData } from '../../redux/slices/contractSlice';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -30,8 +32,11 @@ function a11yProps(index) {
 }
 
 export default function ContractContent() {
+  const contracts = useSelector((state) => state.contracts.items);
+  // console.log(contracts);
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
-  const [contracts, setContracts] = React.useState([]);
+  // const [contracts, setContracts] = React.useState([]);
 
   const [completedContracts, setCompletedContracts] = React.useState([]);
   const [archivedContracts, setArchivedContracts] = React.useState([]);
@@ -45,7 +50,8 @@ export default function ContractContent() {
     const completedContract = contracts.find((contract) => contract.id === contractId);
     const updatedContracts = contracts.filter((contract) => contract.id !== contractId);
 
-    setContracts(updatedContracts);
+    dispatch(setContractData(updatedContracts));
+    // setContracts(updatedContracts)
     setCompletedContracts([...completedContracts, completedContract]);
 
     const completedContractsFromStorage =
@@ -60,7 +66,8 @@ export default function ContractContent() {
     const archivedContract = contracts.find((contract) => contract.id === contractId);
     const updatedArchiContracts = contracts.filter((contract) => contract.id !== contractId);
 
-    setContracts(updatedArchiContracts);
+    // setContracts(updatedArchiContracts);
+    dispatch(setContractData(updatedArchiContracts));
     setArchivedContracts([...archivedContracts, archivedContract]);
 
     const archivedContractsFromStorage =
@@ -101,8 +108,8 @@ export default function ContractContent() {
         `http://localhost:9088/api/v1/contracts/users/${id}?status=${status}`,
       );
 
-      setContracts(data);
-      console.log(data);
+      // setContracts(data);
+      dispatch(setContractData(data));
     } catch (error) {
       console.warn(error);
       alert('Ошибка при получения Контрактов');
@@ -145,7 +152,9 @@ export default function ContractContent() {
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
+
   const currentData = contracts?.slice(startIndex, endIndex);
+
   const currentCompData = completedContracts?.slice(startIndex, endIndex);
 
   return (

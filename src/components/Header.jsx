@@ -44,7 +44,13 @@ export default function Header() {
                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
                   </Stack>
                   {/* <AccountCircle /> */}
-                  <Typography sx={{ ml: '10px', fontWeight: 600, color: '#000' }}>
+                  <Typography
+                    sx={{
+                      ml: '10px',
+                      color: '#000',
+                      fontFamily: '"Montserrat", sans-serif',
+                      fontWeight: '700',
+                    }}>
                     {username}
                   </Typography>
                 </IconButton>

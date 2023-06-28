@@ -88,6 +88,9 @@ const Category = () => {
                   '&:hover': {
                     backgroundColor: '#C3FF29',
                   },
+                  fontSize: '16px',
+                  fontFamily: '"Montserrat", sans-serif',
+                  fontWeight: '600',
                 }}>
                 {<img className="icon" src={categoryIcons[index]} alt="Icon" />}
                 {categories}

@@ -69,13 +69,19 @@ export default function FollowingAccount({ username, id }) {
         />
       </Stack>
       <Box sx={{ pl: '6px' }}>
-        <Typography sx={{ fontWeight: 700 }}>{username}</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{ fontSize: '16px', fontFamily: '"Montserrat", sans-serif', fontWeight: '700' }}>
+          {username}
+        </Typography>
+        <Typography
+          sx={{ fontSize: '14px', fontFamily: '"Montserrat", sans-serif', fontWeight: '500' }}
+          variant="body2"
+          color="text.secondary">
           Рекомендации для вас
         </Typography>
       </Box>
       <Typography
-        sx={{ pl: 9, fontWeight: 700, cursor: 'pointer' }}
+        sx={{ pl: 9, fontWeight: 700, cursor: 'pointer', fontFamily: '"Montserrat", sans-serif' }}
         onClick={isFollowing.isFollowed ? onUnFollow : onFollow}>
         {isFollowing.isFollowed ? 'Отписаться' : 'Подписаться'}
       </Typography>

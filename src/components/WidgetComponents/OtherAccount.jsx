@@ -31,7 +31,13 @@ export default function OtherAccount() {
             justifyContent: 'space-between',
             pl: '6px',
           }}>
-          <Typography sx={{ fontWeight: 700, pt: '24px', pl: '16px' }}>
+          <Typography
+            sx={{
+              fontWeight: 700,
+              pt: '24px',
+              pl: '16px',
+              fontFamily: '"Montserrat", sans-serif',
+            }}>
             Добавить в свою ленту
           </Typography>
           {/* <Typography

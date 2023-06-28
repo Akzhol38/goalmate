@@ -5,6 +5,7 @@ import sportPhoto from '../../assets/sport.png';
 import foodPhoto from '../../assets/food.png';
 import { Box, Paper, Typography } from '@mui/material';
 import ContractsCardMenu from './ContractsCardMenu';
+import ShowContract from './ShowContract';
 
 export default function ContractsCard({
   title,
@@ -57,6 +58,7 @@ export default function ContractsCard({
             padding: 2,
             textAlign: 'center',
             // height: '100px',
+            cursor: 'pointer',
           }}>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <img src={cardIcon} alt="cardIcon" />
@@ -64,7 +66,17 @@ export default function ContractsCard({
           </Box>
           <Typography sx={{ fontSize: '16px', fontWeight: '700' }}>{title}</Typography>
           <Typography sx={{ fontSize: '10px', fontWeight: '700' }}>
-            {dateFrom} - {dateTo}
+            {dateFrom && dateTo
+              ? `${new Date(dateFrom).toLocaleString('ru-RU', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })} - ${new Date(dateTo).toLocaleString('ru-RU', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}`
+              : ''}
           </Typography>
         </Paper>
       </Box>
